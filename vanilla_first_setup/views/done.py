@@ -83,7 +83,7 @@ class VanillaDone(Adw.Bin):
                 self.btn_close.set_visible(True)
 
     def set_result(self, result, terminal=None):
-        out = terminal.get_text()[0] if terminal else ""
+        out = terminal.get_text()[0] if terminal else None
 
         if not result:
             self.status_page.set_icon_name("dialog-error-symbolic")
@@ -91,7 +91,7 @@ class VanillaDone(Adw.Bin):
             self.status_page.set_description(
                 _("Please contact the distribution developers.")
             )
-            if len(out) > 0:
+            if out is not None :
                 self.log_output.set_text(out)
                 self.log_box.set_visible(True)
             self.btn_reboot.set_visible(False)
