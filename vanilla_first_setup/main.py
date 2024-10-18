@@ -32,10 +32,14 @@ import sys
 import logging
 from gettext import gettext as _
 from vanilla_first_setup.window import VanillaWindow
+from vanilla_first_setup.utils.recipe import RecipeLoader
 import subprocess
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO,
+                    filename=RecipeLoader().raw.get("log_file"),
+                    filemode='a',
+                    )
 logger = logging.getLogger("FirstSetup::Main")
 
 
