@@ -22,10 +22,9 @@ import json
 
 logger = logging.getLogger("FirstSetup::RecipeLoader")
 
+recipe_path = "/usr/share/org.vanillaos.FirstSetup/recipe.json"
 
 class RecipeLoader:
-    recipe_path = "/usr/share/org.vanillaos.FirstSetup/recipe.json"
-
     def __init__(self):
         self.__recipe = {}
         self.__load()
