@@ -11,3 +11,6 @@
 
 %:
 	dh $@ --buildsystem=meson
+
+execute_after_dh_fixperms:
+	chmod -R 666 debian/vanilla-first-setup/etc/vanilla
