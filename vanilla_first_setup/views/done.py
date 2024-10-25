@@ -18,9 +18,11 @@ from gettext import gettext as _
 from gi.repository import Gtk, Adw, GLib
 
 import subprocess
+import logging
 
 from vanilla_first_setup.utils.recipe import RecipeLoader
 
+logger = logging.getLogger("FirstSetup::Done")
 
 @Gtk.Template(resource_path="/org/vanillaos/FirstSetup/gtk/done.ui")
 class VanillaDone(Adw.Bin):
@@ -86,12 +88,14 @@ class VanillaDone(Adw.Bin):
         out = terminal.get_text()[0] if terminal else ""
 
         if not result:
+            logger.critical("First setup resulted in an error.")
             self.status_page.set_icon_name("dialog-error-symbolic")
             self.status_page.set_title(_("Something went wrong"))
             self.status_page.set_description(
                 _("Please contact the distribution developers.")
             )
             if len(out) > 0:
+                logger.critical(out)
                 self.log_output.set_text(out)
                 self.log_box.set_visible(True)
             self.btn_reboot.set_visible(False)
