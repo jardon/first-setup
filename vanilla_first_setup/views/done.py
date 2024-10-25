@@ -30,7 +30,7 @@ class VanillaDone(Adw.Bin):
 
     status_page = Gtk.Template.Child()
     btn_reboot = Gtk.Template.Child()
-    btn_retry = Gtk.Template.Child()
+    btn_logs = Gtk.Template.Child()
     btn_close = Gtk.Template.Child()
     log_box = Gtk.Template.Child()
     log_output = Gtk.Template.Child()
@@ -65,7 +65,7 @@ class VanillaDone(Adw.Bin):
         self.btn_close.set_visible(True)
 
         self.btn_close.connect("clicked", self.__on_close_clicked)
-        self.btn_retry.connect("clicked", self.__on_retry_clicked)
+        self.btn_logs.connect("clicked", self.__on_logs_clicked)
         self.btn_reboot.connect("clicked", self.__on_reboot_clicked)
 
     def set_reboot(self):
@@ -94,10 +94,11 @@ class VanillaDone(Adw.Bin):
             self.status_page.set_description(
                 _("Please contact the distribution developers.")
             )
-            if len(out) > 0:
-                logger.critical(out)
-                self.log_output.set_text(out)
-                self.log_box.set_visible(True)
+            if out is not None:
+                if len(out) > 0:
+                    logger.critical(out)
+                    self.log_output.set_text(out)
+                    self.log_box.set_visible(True)
             self.btn_reboot.set_visible(False)
             self.btn_close.set_visible(True)
 
@@ -117,5 +118,5 @@ class VanillaDone(Adw.Bin):
 
         self.__window.close()
 
-    def __on_retry_clicked(self, *args):
+    def __on_logs_clicked(self, *args):
         self.__window.back()
